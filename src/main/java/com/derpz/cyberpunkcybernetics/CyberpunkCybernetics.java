@@ -1,5 +1,6 @@
 package com.derpz.cyberpunkcybernetics;
 
+import com.derpz.cyberpunkcybernetics.item.ModItemGroups;
 import com.derpz.cyberpunkcybernetics.item.ModItems;
 import net.fabricmc.api.ModInitializer;
 
@@ -21,6 +22,8 @@ public class CyberpunkCybernetics implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
+		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
+
 	}
 }
