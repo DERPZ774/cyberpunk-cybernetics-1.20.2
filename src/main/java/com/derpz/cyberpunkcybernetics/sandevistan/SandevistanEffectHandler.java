@@ -7,7 +7,6 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
 import net.minecraft.util.TypedActionResult;
-import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 
@@ -20,9 +19,12 @@ public class SandevistanEffectHandler {
     private static final int MAX_SANDEVISTAN_DURATION_TICKS = 200; // Adjust the duration as needed
     private static final double SANDIVESTAN_PLAYER_SPEED_MODIFIER = 2.0; // Adjust player speed as needed
     private static PlayerEntity activePlayer = null; // Store the player who activated the effect
-    private static final int activationCooldownTicks = 20; // 20 ticks cooldown (1 second), adjust as needed
+    private static final int activationCooldownTicks = 10; // 10 ticks cooldown, adjust as needed
     private static int activationCooldownCounter = 0;
     private static final UUID SPEED_MODIFIER_ID = UUID.fromString("9B39F804-5C68-4C0A-BF7F-6979F5EC3FF3");
+    private static EntityAttributeModifier speedModifier;
+    private static int remainingCooldownTicks = 0;
+    private static int backgroundRechargeTicks = 0;
 
     public static void registerEventHandlers() {
         UseItemCallback.EVENT.register((player, world, hand) -> {
@@ -57,48 +59,74 @@ public class SandevistanEffectHandler {
 
                 // Debug code to print remaining ticks
                 System.out.println("Sandevistan ticks remaining: " + sandevistanDurationTicks);
+            } else {
+                // If not active, recharge the cooldown
+                if (remainingCooldownTicks > 0) {
+                    remainingCooldownTicks--;
+
+                    // Debug code to print remaining cooldown ticks
+                    System.out.println("Cooldown ticks remaining: " + remainingCooldownTicks);
+                }
+
+                // Background recharge
+                if (backgroundRechargeTicks < MAX_SANDEVISTAN_DURATION_TICKS) {
+                    backgroundRechargeTicks++;
+                }
+            }
+
+            // Apply the speed modifier every tick if Sandevistan is active
+            if (isSandevistanActive && activePlayer != null) {
+                if (speedModifier != null) {
+                    Objects.requireNonNull(activePlayer.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED))
+                            .removeModifier(speedModifier.getId());
+                }
+                speedModifier = new EntityAttributeModifier(
+                        SPEED_MODIFIER_ID,
+                        "Sandevistan Speed Boost",
+                        SANDIVESTAN_PLAYER_SPEED_MODIFIER,
+                        EntityAttributeModifier.Operation.MULTIPLY_BASE
+                );
+                Objects.requireNonNull(activePlayer.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED))
+                        .addPersistentModifier(speedModifier);
             }
         });
     }
 
     public static void activateSandevistan(PlayerEntity player) {
-        isSandevistanActive = true;
-        sandevistanDurationTicks = MAX_SANDEVISTAN_DURATION_TICKS;
+        // Only allow activation if the cooldown has elapsed
+        if (remainingCooldownTicks <= 0) {
+            isSandevistanActive = true;
 
-        // Get the player's current movement speed attribute
-        EntityAttribute movementSpeedAttribute = EntityAttributes.GENERIC_MOVEMENT_SPEED;
+            // Calculate the remaining ticks based on the background recharge
+            sandevistanDurationTicks = backgroundRechargeTicks;
 
-        // Create an AttributeModifier to increase speed
-        EntityAttributeModifier speedModifier = new EntityAttributeModifier(
-                SPEED_MODIFIER_ID,
-                "Sandevistan Speed Boost",
-                SANDIVESTAN_PLAYER_SPEED_MODIFIER,
-                EntityAttributeModifier.Operation.MULTIPLY_BASE
-        );
+            // Adjust FOV when Sandevistan is activated
+            player.sendMessage(Text.of("Sandevistan activated"), true);
+            player.setSprinting(true); // Simulate sprinting to adjust FOV
+            activePlayer = player;
 
-        // Apply the modifier to the player's movement speed attribute
-        Objects.requireNonNull(player.getAttributeInstance(movementSpeedAttribute)).addPersistentModifier(speedModifier);
-
-        player.sendMessage(Text.of("Sandevistan activated"), true);
-
-        // Store the player who activated the effect
-        activePlayer = player;
-
-        // Debug print for activation
-        System.out.println("Sandevistan activated by player: " + player.getName().toString());
+            // Debug print for activation
+            System.out.println("Sandevistan activated by player: " + player.getName().toString());
+        } else {
+            // Inform the player about the remaining cooldown
+            player.sendMessage(Text.of("Sandevistan is on cooldown. Cooldown ticks remaining: " + remainingCooldownTicks), true);
+        }
     }
 
     public static void deactivateSandevistan() {
         if (activePlayer != null) {
             isSandevistanActive = false;
 
-            // Get the player's current movement speed attribute
-            EntityAttribute movementSpeedAttribute = EntityAttributes.GENERIC_MOVEMENT_SPEED;
+            // Calculate the remaining cooldown based on the background recharge
+            remainingCooldownTicks = MAX_SANDEVISTAN_DURATION_TICKS - backgroundRechargeTicks;
+
+            // Reset FOV when Sandevistan is deactivated
+            activePlayer.sendMessage(Text.of("Sandevistan deactivated"), true);
+            activePlayer.setSprinting(false); // Reset FOV adjustment
 
             // Remove the modifier from the player's movement speed attribute
-            Objects.requireNonNull(activePlayer.getAttributeInstance(movementSpeedAttribute)).removeModifier(SPEED_MODIFIER_ID);
-
-            activePlayer.sendMessage(Text.of("Sandevistan deactivated"), true);
+            Objects.requireNonNull(activePlayer.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED))
+                    .removeModifier(SPEED_MODIFIER_ID);
 
             // Debug print for deactivation
             System.out.println("Sandevistan deactivated for player: " + activePlayer.getName().toString());
@@ -112,4 +140,4 @@ public class SandevistanEffectHandler {
         return isSandevistanActive;
     }
 }
-/// TODO: 10/3/2023 fix attribute going away after sprint 
+/// TODO: 10/4/2023 Fix cooldown 
