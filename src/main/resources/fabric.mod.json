@@ -16,16 +16,13 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			{
-				"adapter": "kotlin",
-				"value": "com.derpz.cyberpunkcybernetics.CyberpunkCybernetics::onInitialize"
-			}
+		"com.derpz.cyberpunkcybernetics.CyberpunkCybernetics::onInitialize"
 		],
 		"client": [
-			"com.derpz.cyberpunkcybernetics.CyberpunkCyberneticsClient"
+			"com.derpz.cyberpunkcybernetics.CyberpunkCyberneticsClient::onInitializeClient"
 		],
 		"fabric-datagen": [
-			"com.derpz.cyberpunkcybernetics.CyberpunkCyberneticsDataGenerator"
+			"com.derpz.cyberpunkcybernetics.CyberpunkCyberneticsDataGenerator::onInitializeDataGenerator"
 		]
 	},
 	"mixins": [
