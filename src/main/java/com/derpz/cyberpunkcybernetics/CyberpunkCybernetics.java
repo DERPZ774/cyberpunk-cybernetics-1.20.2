@@ -4,6 +4,7 @@ package com.derpz.cyberpunkcybernetics;
 import com.derpz.cyberpunkcybernetics.item.ModItemGroups;
 import com.derpz.cyberpunkcybernetics.item.ModItems;
 import com.derpz.cyberpunkcybernetics.sandevistan.SandevistanEffectHandler;
+import com.derpz.cyberpunkcybernetics.sound.ModSounds;
 import net.fabricmc.api.ModInitializer;
 
 import org.slf4j.Logger;
@@ -27,5 +28,6 @@ public class CyberpunkCybernetics implements ModInitializer {
 		ModItemGroups.registerItemGroups();
 		ModItems.registerModItems();
 		SandevistanEffectHandler.registerEventHandlers();
+		ModSounds.registerSounds();
 	}
 }

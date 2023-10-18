@@ -1,5 +1,7 @@
 {
   "item.cyberpunk-cybernetics.sandevistan": "Sandevistan",
 
-  "itemgroup.cyberware": "Cyberware Group"
+  "itemgroup.cyberware": "Cyberware Group",
+
+  "sounds.cyberpunk-cybernetics.debug": "Debug Sound"
 }
