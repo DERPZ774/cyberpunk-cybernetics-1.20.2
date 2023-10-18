@@ -23,7 +23,8 @@ public class ModItemGroups {
                     })
                     .build());
     public static void registerItemGroups() {
-        CyberpunkCybernetics.LOGGER.info("Registering Item Groups for " + CyberpunkCybernetics.MOD_ID);
+       // CyberpunkCybernetics.LOGGER.info("Registering Item Groups for " + CyberpunkCybernetics.MOD_ID);
+        CyberpunkCybernetics.Companion.getLOGGER().info("Registering Item Groups for " + CyberpunkCybernetics.MOD_ID);
 
     }
 }

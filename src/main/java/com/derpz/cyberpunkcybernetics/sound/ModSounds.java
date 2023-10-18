@@ -13,6 +13,7 @@ public class ModSounds {
         return Registry.register(Registries.SOUND_EVENT, id, SoundEvent.of(id));
     }
     public static void registerSounds() {
-        CyberpunkCybernetics.LOGGER.info("Registering Sounds for " + CyberpunkCybernetics.MOD_ID);
+       // CyberpunkCybernetics.LOGGER.info("Registering Sounds for " + CyberpunkCybernetics.MOD_ID);
+        CyberpunkCybernetics.Companion.getLOGGER().info("Registering Sounds for " + CyberpunkCybernetics.MOD_ID);
     }
 }

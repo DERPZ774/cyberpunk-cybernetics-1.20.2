@@ -30,8 +30,8 @@ public class ModItems {
         return Registry.register(Registries.ITEM, new Identifier(CyberpunkCybernetics.MOD_ID, name), item);
     }
     public static void registerModItems() {
-        CyberpunkCybernetics.LOGGER.info("Registering Mod Items for " + CyberpunkCybernetics.MOD_ID);
-
+       // CyberpunkCybernetics.LOGGER.info("Registering Mod Items for " + CyberpunkCybernetics.MOD_ID);
+        CyberpunkCybernetics.Companion.getLOGGER().info("Registering Mod Items for " + CyberpunkCybernetics.MOD_ID);
         ItemGroupEvents.modifyEntriesEvent(ItemGroups.COMBAT).register(ModItems::addItemToArmorTab);
     }
     public static Collection<Item> getAllModItems() {

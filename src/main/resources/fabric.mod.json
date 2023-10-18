@@ -16,10 +16,9 @@
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"com.derpz.cyberpunkcybernetics.CyberpunkCybernetics",
 			{
 				"adapter": "kotlin",
-				"value": "com.derpz.cyberpunkcybernetics.CyberpunkCybernetics"
+				"value": "com.derpz.cyberpunkcybernetics.CyberpunkCybernetics::onInitialize"
 			}
 		],
 		"client": [
