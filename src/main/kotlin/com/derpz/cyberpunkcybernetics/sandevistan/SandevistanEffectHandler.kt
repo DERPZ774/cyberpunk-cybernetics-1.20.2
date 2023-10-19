@@ -21,7 +21,7 @@ object SandevistanEffectHandler {
     private const val MAX_SANDEVISTAN_DURATION_TICKS = 200 // Adjust the duration as needed
     private const val SANDIVESTAN_PLAYER_SPEED_MODIFIER = 2.0 // Adjust player speed as needed
     private var activePlayer: PlayerEntity? = null // Store the player who activated the effect
-    private const val activationCooldownTicks = 10 // 10 ticks cooldown, adjust as needed
+    private const val ACTIVATION_COOLDOWN_TICKS = 10 // 10 ticks cooldown, adjust as needed
     private var activationCooldownCounter = 0
     private val SPEED_MODIFIER_ID = UUID.fromString("9B39F804-5C68-4C0A-BF7F-6979F5EC3FF3")
     private var speedModifier: EntityAttributeModifier? = null
@@ -39,7 +39,7 @@ object SandevistanEffectHandler {
                     deactivateSandevistan()
                 }
                 activationCooldownCounter =
-                    activationCooldownTicks
+                    ACTIVATION_COOLDOWN_TICKS
                 return@register TypedActionResult.success<ItemStack>(heldItem)
             }
             TypedActionResult.pass<ItemStack>(heldItem)
@@ -118,7 +118,7 @@ object SandevistanEffectHandler {
         } else {
             // Inform the player about the remaining cooldown
             player.sendMessage(
-                Text.of("Sandevistan is on cooldown. Cooldown ticks remaining: " + remainingCooldownTicks),
+                Text.of("Sandevistan is on cooldown. Cooldown ticks remaining: $remainingCooldownTicks"),
                 true
             )
         }
