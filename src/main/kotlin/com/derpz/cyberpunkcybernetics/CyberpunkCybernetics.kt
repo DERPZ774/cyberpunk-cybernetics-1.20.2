@@ -2,6 +2,7 @@ package com.derpz.cyberpunkcybernetics
 
 import com.derpz.cyberpunkcybernetics.item.ModItemGroups
 import com.derpz.cyberpunkcybernetics.item.ModItems
+import networking.ModMessages
 import com.derpz.cyberpunkcybernetics.sandevistan.SandevistanEffectHandler
 import com.derpz.cyberpunkcybernetics.sound.ModSounds
 import net.fabricmc.api.ModInitializer
@@ -19,6 +20,7 @@ class CyberpunkCybernetics : ModInitializer {
         ModItems.registerModItems()
         SandevistanEffectHandler.registerEventHandlers()
         ModSounds.registerSounds()
+        ModMessages.registerC2SPackets()
     }
 
     companion object {
