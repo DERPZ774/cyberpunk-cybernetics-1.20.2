@@ -3,5 +3,8 @@
 
   "itemgroup.cyberware": "Cyberware Group",
 
-  "sounds.cyberpunk-cybernetics.debug": "Debug Sound"
+  "sounds.cyberpunk-cybernetics.debug": "Debug Sound",
+
+  "key.category.cyberpunk-cybernetics": "Cyberpunk-Cybernetics",
+  "key.cyberpunk-cybernetics.sandevistan": "Activate Sandevistan"
 }

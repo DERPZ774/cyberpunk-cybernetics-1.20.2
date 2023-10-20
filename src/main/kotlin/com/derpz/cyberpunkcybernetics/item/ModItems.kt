@@ -6,6 +6,7 @@ import com.derpz.cyberpunkcybernetics.item.custom.SandevistanItem
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings
 import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroupEntries
 import net.fabricmc.fabric.api.itemgroup.v1.ItemGroupEvents
+import net.minecraft.item.ArmorItem
 import net.minecraft.item.Item
 import net.minecraft.item.ItemGroups
 import net.minecraft.registry.Registries
@@ -15,7 +16,7 @@ import net.minecraft.util.Identifier
 object ModItems {
     //Cyberware
     @JvmField
-    val SANDEVISTAN = registerItem("sandevistan", SandevistanItem(FabricItemSettings()))
+    val SANDEVISTAN = registerItem("sandevistan", ArmorItem(ModArmorMaterials.CYBERWARE, ArmorItem.Type.CHESTPLATE, FabricItemSettings()))
     val DEBUG = registerItem("debug", Item(FabricItemSettings()))
     private fun addItemToArmorTab(entries: FabricItemGroupEntries) {
         entries.add(SANDEVISTAN)
