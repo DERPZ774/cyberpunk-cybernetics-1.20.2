@@ -1,6 +1,6 @@
 package com.derpz.cyberpunkcybernetics.item.custom
 
-import networking.ModMessages
+import com.derpz.cyberpunkcybernetics.networking.ModMessages
 import com.derpz.cyberpunkcybernetics.sound.ModSounds
 import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs

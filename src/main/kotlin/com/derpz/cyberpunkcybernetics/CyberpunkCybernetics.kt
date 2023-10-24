@@ -2,7 +2,7 @@ package com.derpz.cyberpunkcybernetics
 
 import com.derpz.cyberpunkcybernetics.item.ModItemGroups
 import com.derpz.cyberpunkcybernetics.item.ModItems
-import networking.ModMessages
+import com.derpz.cyberpunkcybernetics.networking.ModMessages
 import com.derpz.cyberpunkcybernetics.sound.ModSounds
 import net.fabricmc.api.ModInitializer
 import org.slf4j.Logger

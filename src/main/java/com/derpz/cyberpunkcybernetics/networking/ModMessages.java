@@ -1,7 +1,7 @@
-package networking;
+package com.derpz.cyberpunkcybernetics.networking;
 
 import com.derpz.cyberpunkcybernetics.CyberpunkCybernetics;
-import networking.client.SandevistanC2S;
+import com.derpz.cyberpunkcybernetics.networking.client.SandevistanC2S;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayNetworking;
 import net.minecraft.util.Identifier;
 

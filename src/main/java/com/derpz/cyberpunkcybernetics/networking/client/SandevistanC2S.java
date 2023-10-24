@@ -1,4 +1,4 @@
-package networking.client;
+package com.derpz.cyberpunkcybernetics.networking.client;
 
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.entity.EntityType;
