@@ -1,23 +1,31 @@
 package com.derpz.cyberpunkcybernetics.mixin;
 
-import com.derpz.cyberpunkcybernetics.client.model.TestModel;
-import net.minecraft.client.model.Dilation;
-import net.minecraft.client.model.ModelData;
-import net.minecraft.client.model.ModelPartData;
+import com.derpz.cyberpunkcybernetics.client.models.SandevistanModel;
+import com.derpz.cyberpunkcybernetics.client.renderer.SandevistanFeatureRenderer;
+import net.minecraft.client.network.AbstractClientPlayerEntity;
+import net.minecraft.client.render.VertexConsumerProvider;
+import net.minecraft.client.render.entity.EntityRendererFactory;
+import net.minecraft.client.render.entity.LivingEntityRenderer;
 import net.minecraft.client.render.entity.PlayerEntityRenderer;
+import net.minecraft.client.render.entity.feature.CapeFeatureRenderer;
+import net.minecraft.client.render.entity.model.PlayerEntityModel;
+import net.minecraft.client.util.math.MatrixStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(PlayerEntityRenderer.class)
-public class PlayerEntityRendererMixin {
-    @Inject(at = @At("RETURN"), method = "render(Lnet/minecraft/client/network/AbstractClientPlayerEntity;FFLnet/minecraft/client/util/math/MatrixStack;Lnet/minecraft/client/render/VertexConsumerProvider;I)V")
-    private void init(CallbackInfo info) {
-        ModelData modelData = TestModel.getModelData(new Dilation(1), 1);
-        ModelPartData modelPartData = modelData.getRoot();
+public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>> {
 
-
+    public PlayerEntityRendererMixin(EntityRendererFactory.Context ctx, PlayerEntityModel<AbstractClientPlayerEntity> model, float shadowRadius) {
+        super(ctx, model, shadowRadius);
     }
 
+    @Inject(at = @At("RETURN"), method = "<init>")
+    private void init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
+        PlayerEntityRenderer playerEntityRenderer = (PlayerEntityRenderer) (Object) this;
+        this.addFeature(new CapeFeatureRenderer(playerEntityRenderer));
+        this.addFeature(new SandevistanFeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>(this, ctx.getModelLoader()));
+    }
 }

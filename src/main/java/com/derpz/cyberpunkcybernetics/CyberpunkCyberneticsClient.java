@@ -1,13 +1,16 @@
 package com.derpz.cyberpunkcybernetics;
 
+import com.derpz.cyberpunkcybernetics.client.ModModelLayers;
+import com.derpz.cyberpunkcybernetics.client.models.SandevistanModel;
 import com.derpz.cyberpunkcybernetics.event.KeyInputHandler;
 import net.fabricmc.api.ClientModInitializer;
-import com.derpz.cyberpunkcybernetics.networking.ModMessages;
+import net.fabricmc.fabric.api.client.rendering.v1.EntityModelLayerRegistry;
 
 public class CyberpunkCyberneticsClient implements ClientModInitializer {
     @Override
     public void onInitializeClient() {
         KeyInputHandler.register();
-        ModMessages.registerS2CPackets();
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SANDEVISTAN, SandevistanModel::getTexturedModelData);
     }
+
 }
