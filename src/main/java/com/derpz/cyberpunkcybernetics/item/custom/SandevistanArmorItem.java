@@ -14,8 +14,6 @@ public class SandevistanArmorItem extends ArmorItem {
         super(material, type, settings);
     }
 
-
-
     @NotNull
     public Identifier getArmorTexture(ItemStack stack, EquipmentSlot slot) {
         return new Identifier(CyberpunkCybernetics.MOD_ID, "textures/models/texture.png");
