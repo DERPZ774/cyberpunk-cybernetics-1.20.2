@@ -43,9 +43,9 @@ public class SandevistanFeatureRenderer<T extends LivingEntity, M extends Entity
         AbstractClientPlayerEntity abstractClientPlayerEntity;
         SkinTextures skinTextures;
         ItemStack itemStack = ((LivingEntity)livingEntity).getEquippedStack(EquipmentSlot.CHEST);
-        if (!itemStack.isOf(ModItems.SANDEVISTAN)) {
-            return;
-        }
+//        if (!itemStack.isOf(ModItems.SANDEVISTAN)) {
+//            return;
+//        }
         Identifier identifier = livingEntity instanceof AbstractClientPlayerEntity ? ((skinTextures = (abstractClientPlayerEntity = (AbstractClientPlayerEntity)livingEntity).getSkinTextures()).elytraTexture() != null ? skinTextures.elytraTexture() : (skinTextures.capeTexture() != null && abstractClientPlayerEntity.isPartVisible(PlayerModelPart.CAPE) ? skinTextures.capeTexture() : SKIN)) : SKIN;
         matrixStack.push();
         matrixStack.translate(0.0f, 0.0f, 0.125f);
