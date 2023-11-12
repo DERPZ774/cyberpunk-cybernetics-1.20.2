@@ -24,7 +24,6 @@ public class ArmorFeatureRendererMixin {
 
         if (item instanceof SandevistanArmorItem) {
             ci.cancel(); // Exit early to skip rendering
-            return;
         }
     }
 

@@ -6,6 +6,7 @@ import com.derpz.cyberpunkcybernetics.client.models.SandevistanModel;
 import com.derpz.cyberpunkcybernetics.item.ModItems;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.network.AbstractClientPlayerEntity;
 import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
@@ -60,10 +61,10 @@ public class SandevistanFeatureRenderer<T extends LivingEntity, M extends Entity
                 false
         );
 
-        this.sandevistanModel.renderModelPart(sandevistanModel.getVertebrae(), matrixStack, emissiveVertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0f);
-
+        ModelPart[] vertebrae = sandevistanModel.getVertebrae();
+        for (ModelPart vertebra : vertebrae) {
+            sandevistanModel.renderModelPart(vertebra, matrixStack, emissiveVertexConsumer, i, OverlayTexture.DEFAULT_UV, 1.0f, 1.0f, 1.0f, 1.0f);
+        }
         matrixStack.pop();
     }
-
-
 }
