@@ -11,6 +11,7 @@ public class CyberpunkCyberneticsClient implements ClientModInitializer {
     public void onInitializeClient() {
         KeyInputHandler.register();
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SANDEVISTAN, SandevistanModel::getTexturedModelData);
+        EntityModelLayerRegistry.registerModelLayer(ModModelLayers.VERTEBRAE, SandevistanModel::getTexturedModelData);
     }
 
 }

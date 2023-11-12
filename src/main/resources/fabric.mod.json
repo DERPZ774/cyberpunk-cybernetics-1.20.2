@@ -3,13 +3,13 @@
 	"id": "cyberpunk-cybernetics",
 	"version": "${version}",
 	"name": "Cyberpunk Cybernetics",
-	"description": "This is an example description! Tell everyone what your mod is about!",
+	"description": "This mod adds in Cyberware from the Cyberpunk game!",
 	"authors": [
 		"DERPZ774"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
-		"sources": "https://github.com/FabricMC/fabric-example-mod"
+		"sources": "https://github.com/DERPZ774/cyberpunk-cybernetics-1.20.2"
 	},
 	"license": "CC0-1.0",
 	"icon": "assets/cyberpunk-cybernetics/icon.png",

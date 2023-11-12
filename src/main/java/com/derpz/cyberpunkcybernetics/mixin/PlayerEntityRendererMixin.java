@@ -18,9 +18,11 @@ public abstract class PlayerEntityRendererMixin extends LivingEntityRenderer<Abs
         super(ctx, model, shadowRadius);
     }
 
-    @Inject(at = @At("RETURN"), method = "<init>")
+    @Inject(at = @At("TAIL"), method = "<init>")
     private void init(EntityRendererFactory.Context ctx, boolean slim, CallbackInfo ci) {
+        System.out.println("PlayerEntityRendererMixin initialized!");
         PlayerEntityRenderer playerEntityRenderer = (PlayerEntityRenderer) (Object) this;
-        this.addFeature(new SandevistanFeatureRenderer<AbstractClientPlayerEntity, PlayerEntityModel<AbstractClientPlayerEntity>>(this, ctx.getModelLoader()));
+        this.addFeature(new SandevistanFeatureRenderer<>(this, ctx.getModelLoader()));
     }
+
 }
