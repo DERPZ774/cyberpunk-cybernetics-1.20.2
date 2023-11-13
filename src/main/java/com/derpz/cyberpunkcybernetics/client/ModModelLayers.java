@@ -7,8 +7,4 @@ import net.minecraft.util.Identifier;
 public class ModModelLayers {
     public static final EntityModelLayer SANDEVISTAN =
             new EntityModelLayer(new Identifier(CyberpunkCybernetics.MOD_ID, "sandevistan"), "main");
-
-    public static final EntityModelLayer VERTEBRAE =
-            new EntityModelLayer(new Identifier(CyberpunkCybernetics.MOD_ID, "vertebrae"), "main");
-
 }

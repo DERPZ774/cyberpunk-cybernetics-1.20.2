@@ -59,7 +59,9 @@ public class SandevistanModel extends EntityModel<Entity> {
     public void setAngles(Entity entity, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
         EntityPose pose = entity.getPose();
 
-        if (pose == EntityPose.CROUCHING) {
+
+
+        if (entity.isInSneakingPose()) {
             // Sandevistan specific positioning
             this.sandevistan.pitch = 0.5F;
             this.sandevistan.pivotY = 2.5F;
@@ -88,9 +90,6 @@ public class SandevistanModel extends EntityModel<Entity> {
         part.pitch = pitch;
     }
 
-    private void setPartAngles(ModelPart part, float pivotY, float pivotZ) {
-        setPartAngles(part, pivotY, pivotZ, 0.0F);
-    }
 
     @Override
     public void render(MatrixStack matrices, VertexConsumer vertexConsumer, int light, int overlay, float red, float green, float blue, float alpha) {

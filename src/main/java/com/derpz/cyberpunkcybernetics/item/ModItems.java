@@ -1,12 +1,9 @@
 package com.derpz.cyberpunkcybernetics.item;
 
 import com.derpz.cyberpunkcybernetics.CyberpunkCybernetics;
-import com.derpz.cyberpunkcybernetics.item.custom.SandevistanArmorItem;
-import net.fabricmc.fabric.api.item.v1.FabricItem;
+import com.derpz.cyberpunkcybernetics.item.custom.Sandevistan;
 import net.fabricmc.fabric.api.item.v1.FabricItemSettings;
-import net.minecraft.item.ArmorItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.registry.Registries;
 import net.minecraft.registry.Registry;
 import net.minecraft.util.Identifier;
@@ -18,7 +15,7 @@ import java.util.List;
 
 public class ModItems {
     // Cyberware
-    public static final Item SANDEVISTAN = registerItem("sandevistan", new SandevistanArmorItem(ModArmorMaterials.CYBERWARE, ArmorItem.Type.CHESTPLATE, new FabricItemSettings()));
+    public static final Item SANDEVISTAN = registerItem("sandevistan", new Sandevistan(new FabricItemSettings().maxCount(1)));
     public static final Item DEBUG = registerItem("debug", new Item(new FabricItemSettings()));
 
     // Add more mod items here

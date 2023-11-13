@@ -1,9 +1,8 @@
 package com.derpz.cyberpunkcybernetics.mixin;
 
-import com.derpz.cyberpunkcybernetics.item.custom.SandevistanArmorItem;
+import com.derpz.cyberpunkcybernetics.item.custom.Sandevistan;
 import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.entity.feature.ArmorFeatureRenderer;
-import net.minecraft.client.render.entity.model.BipedEntityModel;
 import net.minecraft.client.util.math.MatrixStack;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.LivingEntity;
@@ -22,7 +21,7 @@ public class ArmorFeatureRendererMixin {
         ItemStack itemStack = entity.getEquippedStack(EquipmentSlot.CHEST);
         Item item = itemStack.getItem();
 
-        if (item instanceof SandevistanArmorItem) {
+        if (item instanceof Sandevistan) {
             ci.cancel(); // Exit early to skip rendering
         }
     }
