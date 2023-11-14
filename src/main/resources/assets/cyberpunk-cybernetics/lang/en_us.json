@@ -6,5 +6,8 @@
   "sounds.cyberpunk-cybernetics.debug": "Debug Sound",
 
   "key.category.cyberpunk-cybernetics": "Cyberpunk-Cybernetics",
-  "key.cyberpunk-cybernetics.sandevistan": "Activate Sandevistan"
+  "key.cyberpunk-cybernetics.sandevistan": "Activate Sandevistan",
+
+  "message.cyberpunkcybernetics.sandevistan_activated": "Sandevistan Activated!",
+  "message.cyberpunkcybernetics.sandevistan_deactivated": "Sandevistan Deactivated!"
 }

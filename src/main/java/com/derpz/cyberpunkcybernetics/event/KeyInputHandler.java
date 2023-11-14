@@ -20,7 +20,7 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if(sandevistanKey.wasPressed()) {
                 assert client.player != null;
-                client.player.sendMessage(Text.of("BOMBA"));
+                //client.player.sendMessage(Text.of("BOMBA"));
                 ClientPlayNetworking.send(ModMessages.SANDEVISTAN_ID, PacketByteBufs.create());
             }
         });
