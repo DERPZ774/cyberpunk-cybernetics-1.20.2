@@ -14,5 +14,4 @@ public class CyberpunkCyberneticsClient implements ClientModInitializer {
         EntityModelLayerRegistry.registerModelLayer(ModModelLayers.SANDEVISTAN, SandevistanModel::getTexturedModelData);
         ModMessages.registerS2CPackets();
     }
-
 }

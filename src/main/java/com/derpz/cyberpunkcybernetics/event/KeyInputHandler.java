@@ -1,5 +1,7 @@
 package com.derpz.cyberpunkcybernetics.event;
 
+import com.derpz.cyberpunkcybernetics.item.ModItems;
+import com.derpz.cyberpunkcybernetics.item.custom.Sandevistan;
 import com.derpz.cyberpunkcybernetics.networking.ModMessages;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.keybinding.v1.KeyBindingHelper;
@@ -7,7 +9,7 @@ import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.minecraft.client.option.KeyBinding;
 import net.minecraft.client.util.InputUtil;
-import net.minecraft.text.Text;
+import net.minecraft.entity.EquipmentSlot;
 import org.lwjgl.glfw.GLFW;
 
 public class KeyInputHandler {
@@ -18,10 +20,13 @@ public class KeyInputHandler {
 
     public static void registerKeyInputs() {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
-            if(sandevistanKey.wasPressed()) {
+            if (sandevistanKey.wasPressed()) {
                 assert client.player != null;
-                //client.player.sendMessage(Text.of("BOMBA"));
-                ClientPlayNetworking.send(ModMessages.SANDEVISTAN_ID, PacketByteBufs.create());
+                if (client.player.getEquippedStack(EquipmentSlot.CHEST) == ModItems.SANDEVISTAN.getDefaultStack()) {
+                    assert client.player != null;
+                    //client.player.sendMessage(Text.of("BOMBA"));
+                    ClientPlayNetworking.send(ModMessages.SANDEVISTAN_ID, PacketByteBufs.create());
+                }
             }
         });
     }

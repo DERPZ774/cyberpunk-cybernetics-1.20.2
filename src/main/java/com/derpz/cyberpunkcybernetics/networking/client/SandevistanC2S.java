@@ -65,15 +65,15 @@ public class SandevistanC2S {
     }
 
     private static void applySandevistanEffects(ServerPlayerEntity player) {
-        // Increase player's movement speed
-        double speedMultiplier = 2.0; // You can adjust this multiplier as needed
-
         // Get the player's attribute modifier for movement speed
         EntityAttributeInstance movementSpeedAttribute = player.getAttributeInstance(EntityAttributes.GENERIC_MOVEMENT_SPEED);
 
         // Remove existing modifiers (in case there are any)
         assert movementSpeedAttribute != null;
         movementSpeedAttribute.removeModifier(Modifiers.SANDEVISTAN_SPEED);
+
+        // Increase player's movement speed
+        double speedMultiplier = 2.2; // You can adjust this multiplier as needed
 
         // Add a new modifier based on the speedMultiplier
         movementSpeedAttribute.addTemporaryModifier(new EntityAttributeModifier(Modifiers.SANDEVISTAN_SPEED, "Sandevistan Speed", speedMultiplier - 1.0, EntityAttributeModifier.Operation.MULTIPLY_TOTAL));
