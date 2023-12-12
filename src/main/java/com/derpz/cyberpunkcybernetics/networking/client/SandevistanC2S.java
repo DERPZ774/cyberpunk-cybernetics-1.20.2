@@ -8,6 +8,7 @@ import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.server.ServerTickManager;
 import net.minecraft.server.network.ServerPlayNetworkHandler;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
@@ -21,18 +22,23 @@ public class SandevistanC2S {
 
     private static final String MESSAGE_SANDEVISTAN_ACTIVATED = "message.cyberpunkcybernetics.sandevistan_activated";
     private static final String MESSAGE_SANDEVISTAN_DEACTIVATED = "message.cyberpunkcybernetics.sandevistan_deactivated";
-
+    private static final float rateSpeed = 10, defaultRate = 20;
     private static boolean isSandevistanActive = false;
 
     public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
                                PacketByteBuf buf, PacketSender responseSender) {
         // Everything here happens ONLY on the Server!
         ServerWorld world = (ServerWorld) player.getWorld();
+        ServerTickManager serverTickManager = world.getServer().getTickManager();
 
         if (!isSandevistanActive) {
             activateSandevistan(player, world);
+            serverTickManager.setTickRate(rateSpeed);
+            notifyPlayer(player, "Tick Rate: " + rateSpeed, Formatting.WHITE);
         } else {
             deactivateSandevistan(player, world);
+            serverTickManager.setTickRate(defaultRate);
+            notifyPlayer(player, "Tick Rate: " + defaultRate, Formatting.WHITE);
         }
 
         // Updates the sandevistanState
@@ -40,7 +46,7 @@ public class SandevistanC2S {
     }
 
     private static void activateSandevistan(ServerPlayerEntity player, ServerWorld world) {
-        notifyPlayer(player, MESSAGE_SANDEVISTAN_ACTIVATED, Formatting.GREEN);
+        player.sendMessage(Text.translatable(MESSAGE_SANDEVISTAN_ACTIVATED).formatted(Formatting.GREEN), true);
         playActivationSound(player, world);
 
         // Apply the Sandevistan effects
@@ -50,7 +56,7 @@ public class SandevistanC2S {
     }
 
     private static void deactivateSandevistan(ServerPlayerEntity player, ServerWorld world) {
-        notifyPlayer(player, MESSAGE_SANDEVISTAN_DEACTIVATED, Formatting.RED);
+        player.sendMessage(Text.translatable(MESSAGE_SANDEVISTAN_DEACTIVATED).formatted(Formatting.RED), true);
 
         // Remove the Sandevistan effects
         removeSandevistanEffects(player);
