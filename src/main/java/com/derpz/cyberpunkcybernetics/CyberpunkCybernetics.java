@@ -23,8 +23,9 @@ public class CyberpunkCybernetics implements ModInitializer {
         LOGGER.info("Hello Fabric world!");
         ModItemGroups.registerItemGroups();
         ModItems.registerModItems();
-        // SandevistanEffectHandler.registerEventHandlers();
         ModSounds.registerSounds();
         ModMessages.registerC2SPackets();
     }
 }
+
+/// TODO: 11/18/2023 Add on screen effects for sandevistan  https://discord.com/channels/@me/1002243774883311666/1175609554554331156

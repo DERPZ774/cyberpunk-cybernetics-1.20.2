@@ -30,6 +30,7 @@ public class SandevistanC2S {
         // Everything here happens ONLY on the Server!
         ServerWorld world = (ServerWorld) player.getWorld();
         ServerTickManager serverTickManager = world.getServer().getTickManager();
+        
 
         if (!isSandevistanActive) {
             activateSandevistan(player, world);

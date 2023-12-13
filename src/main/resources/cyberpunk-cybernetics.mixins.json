@@ -3,12 +3,13 @@
   "package": "com.derpz.cyberpunkcybernetics.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
+    "server.LivingEntityMixin"
   ],
   "injectors": {
     "defaultRequire": 1
   },
   "client": [
-    "ArmorFeatureRendererMixin",
-    "PlayerEntityRendererMixin"
+    "client.ArmorFeatureRendererMixin",
+    "client.PlayerEntityRendererMixin"
   ]
 }

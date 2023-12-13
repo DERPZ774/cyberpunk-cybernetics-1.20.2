@@ -1,4 +1,4 @@
-package com.derpz.cyberpunkcybernetics.mixin;
+package com.derpz.cyberpunkcybernetics.mixin.client;
 
 import com.derpz.cyberpunkcybernetics.item.custom.Sandevistan;
 import net.minecraft.client.render.VertexConsumerProvider;

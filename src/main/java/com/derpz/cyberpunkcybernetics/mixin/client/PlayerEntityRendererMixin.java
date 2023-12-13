@@ -1,4 +1,4 @@
-package com.derpz.cyberpunkcybernetics.mixin;
+package com.derpz.cyberpunkcybernetics.mixin.client;
 
 import com.derpz.cyberpunkcybernetics.client.renderer.SandevistanFeatureRenderer;
 import net.minecraft.client.network.AbstractClientPlayerEntity;

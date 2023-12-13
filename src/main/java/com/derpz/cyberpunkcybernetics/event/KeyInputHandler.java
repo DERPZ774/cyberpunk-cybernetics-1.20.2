@@ -22,7 +22,7 @@ public class KeyInputHandler {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (sandevistanKey.wasPressed()) {
                 assert client.player != null;
-                if (client.player.getEquippedStack(EquipmentSlot.CHEST) == ModItems.SANDEVISTAN.getDefaultStack()) {
+                if (client.player.getEquippedStack(EquipmentSlot.CHEST).getItem() instanceof Sandevistan) {
                     assert client.player != null;
                     //client.player.sendMessage(Text.of("BOMBA"));
                     ClientPlayNetworking.send(ModMessages.SANDEVISTAN_ID, PacketByteBufs.create());
