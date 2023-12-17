@@ -1,6 +1,8 @@
-package com.derpz.cyberpunkcybernetics.networking.client;
+package com.derpz.cyberpunkcybernetics.networking.server;
 
 import com.derpz.cyberpunkcybernetics.entity.Modifiers;
+import com.derpz.cyberpunkcybernetics.networking.ModMessages;
+import net.fabricmc.fabric.api.client.networking.v1.ClientPlayNetworking;
 import net.fabricmc.fabric.api.networking.v1.PacketByteBufs;
 import net.fabricmc.fabric.api.networking.v1.PacketSender;
 import net.minecraft.entity.attribute.EntityAttributeInstance;
@@ -18,51 +20,61 @@ import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class SandevistanC2S {
 
     private static final String MESSAGE_SANDEVISTAN_ACTIVATED = "message.cyberpunkcybernetics.sandevistan_activated";
     private static final String MESSAGE_SANDEVISTAN_DEACTIVATED = "message.cyberpunkcybernetics.sandevistan_deactivated";
     private static final float rateSpeed = 10, defaultRate = 20;
-    private static boolean isSandevistanActive = false;
+    private static final Map<ServerPlayerEntity, Boolean> playerActivationMap = new HashMap<>();
 
     public static void receive(MinecraftServer server, ServerPlayerEntity player, ServerPlayNetworkHandler handler,
                                PacketByteBuf buf, PacketSender responseSender) {
         // Everything here happens ONLY on the Server!
         ServerWorld world = (ServerWorld) player.getWorld();
         ServerTickManager serverTickManager = world.getServer().getTickManager();
-        
 
-        if (!isSandevistanActive) {
-            activateSandevistan(player, world);
-            serverTickManager.setTickRate(rateSpeed);
+        // Toggle Sandevistan state for the specific player
+        boolean isSandevistanActive = !playerActivationMap.getOrDefault(player, false);
+
+        if (isSandevistanActive) {
+            activateSandevistan(player, world, serverTickManager);
             notifyPlayer(player, "Tick Rate: " + rateSpeed, Formatting.WHITE);
+            applyAOETickChange(player, world, rateSpeed, 20.0); // Adjust radius as needed
         } else {
-            deactivateSandevistan(player, world);
-            serverTickManager.setTickRate(defaultRate);
+            deactivateSandevistan(player, world, serverTickManager);
             notifyPlayer(player, "Tick Rate: " + defaultRate, Formatting.WHITE);
+            applyAOETickChange(player, world, defaultRate, 20.0); // Adjust radius as needed
         }
 
+        // Update the Sandevistan state for the specific player
+        playerActivationMap.put(player, isSandevistanActive);
+
         // Updates the sandevistanState
-        sendStateUpdate(responseSender);
+        sendStateUpdate(responseSender, isSandevistanActive);
     }
 
-    private static void activateSandevistan(ServerPlayerEntity player, ServerWorld world) {
+    private static void activateSandevistan(ServerPlayerEntity player, ServerWorld world, ServerTickManager serverTickManager) {
         player.sendMessage(Text.translatable(MESSAGE_SANDEVISTAN_ACTIVATED).formatted(Formatting.GREEN), true);
         playActivationSound(player, world);
 
         // Apply the Sandevistan effects
         applySandevistanEffects(player);
 
-        isSandevistanActive = true;
+        // Adjust server tick rate
+        serverTickManager.setTickRate(rateSpeed);
     }
 
-    private static void deactivateSandevistan(ServerPlayerEntity player, ServerWorld world) {
+    private static void deactivateSandevistan(ServerPlayerEntity player, ServerWorld world, ServerTickManager serverTickManager) {
         player.sendMessage(Text.translatable(MESSAGE_SANDEVISTAN_DEACTIVATED).formatted(Formatting.RED), true);
 
         // Remove the Sandevistan effects
         removeSandevistanEffects(player);
 
-        isSandevistanActive = false;
+        // Adjust server tick rate back to default
+        serverTickManager.setTickRate(defaultRate);
     }
 
     private static void applySandevistanEffects(ServerPlayerEntity player) {
@@ -88,9 +100,9 @@ public class SandevistanC2S {
         movementSpeedAttribute.removeModifier(Modifiers.SANDEVISTAN_SPEED);
     }
 
-    private static void sendStateUpdate(PacketSender responseSender) {
+    private static void sendStateUpdate(PacketSender responseSender, boolean isSandevistanActive) {
         PacketByteBuf buf = PacketByteBufs.create();
-        buf.writeBoolean(isSandevistanActive());
+        buf.writeBoolean(isSandevistanActive);
     }
 
     private static void notifyPlayer(ServerPlayerEntity player, String message, Formatting color) {
@@ -101,8 +113,13 @@ public class SandevistanC2S {
         world.playSound(null, player.getBlockPos(), SoundEvents.BLOCK_BEACON_ACTIVATE, SoundCategory.PLAYERS, 1.0F, 1.0F);
     }
 
-    // Add a method to get the current Sandevistan state
-    public static boolean isSandevistanActive() {
-        return isSandevistanActive;
+    private static void applyAOETickChange(ServerPlayerEntity player, ServerWorld world, float tickRate, double radius) {
+        for (ServerPlayerEntity otherPlayer : world.getPlayers()) {
+            // Check if the other player is within the specified radius
+            if (player.getPos().distanceTo(otherPlayer.getPos()) <= radius) {
+
+            }
+        }
     }
+
 }
